@@ -6,8 +6,8 @@
 */
 
 #include <iostream>
-#include <string>
 #include <fstream>
+#include <string>
 #include "Binairo.h"
 using namespace std;
 
@@ -19,31 +19,31 @@ int main()
 {
 	//This is the start of a great adventure
 	// point d'entrée du programme
-		system("Color F0");
-		char cReponse = 'O';
-		string sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
+	system("Color F0");
+	char cReponse = 'O';
+	string sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
 
-		while (sFichierGrille != "")
+	while (sFichierGrille != "")
+	{
+		ifstream in(sFichierGrille.c_str());
+		string sOut = "Solution-" + sFichierGrille;
+		ofstream out(sOut.c_str());
+
+		if (!in.fail())
 		{
-			ifstream in(sFichierGrille.c_str());
-			string sOut = "Solution-" + sFichierGrille;
-			ofstream out(sOut.c_str());
-
-			if (!in.fail())
-			{
-				// Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
-				// à l'écran. 
-				Binairo Jeu(in, out);
-				Jeu.Solutionner();
-			}
-			else
-			{
-				cout << "Probleme a la lecture de la grille..." << endl;
-			}
-			sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
+			/*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
+			à l'écran. */
+			/*Binairo Jeu(in, out);*/ /**TODO**/
+			/*Jeu.Solutionner();*/ /**TODO**/
 		}
+		else
+		{
+			cout << "Probleme a la lecture de la grille..." << endl;
+		}
+		sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
 	}
 
+}
 // Permet de demander à l'utilisateur le nom du fichier dans lequel
 // se trouve la grille de Binairo
 // Intrant : la chaine d'incitation à faire apparaitre à l'écran
