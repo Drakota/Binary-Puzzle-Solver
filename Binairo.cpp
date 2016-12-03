@@ -5,6 +5,7 @@
 // mot et dans quelle direction dans la grille.
 //------------------------------------------------------------
 #include "Binairo.h"
+#include <string>
 #include <iostream>
 using namespace std;
 
@@ -26,7 +27,7 @@ string Binairo::DeterminerChaine(int i, int j) const
 	string chaine;
 
 	// La valeur sentinelle est l'étoile ('*')
-	if (m_.at(i).at(j) == Binairo::VALEUR_SENTINELLE)
+	if (m_.at(i).at(j) == VALEUR_SENTINELLE)
 		chaine = "   !";
 	else
 		if (m_[i][j] == 0)

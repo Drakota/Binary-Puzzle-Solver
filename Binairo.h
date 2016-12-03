@@ -4,6 +4,8 @@
 
 class Binairo
 {
+	int const VALEUR_SENTINELLE = 10;
+	int nbLignesBinairo_;
 	Chrono chronomètre_;
 	Matrice <int> m_;
 	ostream & rOut_;
