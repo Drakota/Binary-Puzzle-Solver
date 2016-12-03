@@ -6,6 +6,7 @@
 //------------------------------------------------------------
 #include "Binairo.h"
 #include <iostream>
+#include <string>
 using namespace std;
 
 // seront rendus disponibles aux étudiants un certain nombre de fonctions
@@ -95,6 +96,7 @@ void Binairo::Ecrire(ostream & out)
 int Binairo::TrouverCodeValidationLigne(int ligne)
 {
 	// à compléter par l'étudiant
+
 
 	return 0;
 }

@@ -1,5 +1,14 @@
+/*
+	Charles Morin et Jonathan Bouchard
+	2016-12-03
+	Binairo
+	main.cpp
+*/
+
 #include <iostream>
 #include <string>
+#include <fstream>
+#include "Binairo.h"
 using namespace std;
 
 // Permet de demander à l'utilisateur le nom du fichier dans lequel
@@ -10,8 +19,6 @@ int main()
 {
 	//This is the start of a great adventure
 	// point d'entrée du programme
-	int main()
-	{
 		system("Color F0");
 		char cReponse = 'O';
 		string sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
@@ -36,7 +43,6 @@ int main()
 			sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
 		}
 	}
-}
 
 // Permet de demander à l'utilisateur le nom du fichier dans lequel
 // se trouve la grille de Binairo
