@@ -4,7 +4,9 @@
 
 class Binairo
 {
-	int const VALEUR_SENTINELLE = 10;
+	const int NOMBRE_LIGNE = 10;
+	const int NOMBRE_COLONNE = 10;
+	const char VALEUR_SENTINELLE = '*' - '0';
 	int nbLignesBinairo_;
 	Chrono chronomètre_;
 	Matrice <int> m_;
@@ -13,6 +15,7 @@ public:
 	Binairo(ifstream & in, ofstream & out);
 	void Solutionner();
 private:
+	void InitMatrice(ifstream& in);
 	void PlacerChiffre(int x, int y);
 	// vos autres méthodes private ici…
 	void AfficherEnTete(ostream & output, int maxColonnes) const;

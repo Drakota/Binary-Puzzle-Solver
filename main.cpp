@@ -14,7 +14,7 @@ int main()
 	// point d'entrée du programme
 	system("Color F0");
 	char cReponse = 'O';
-	string sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
+	string sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille : ");
 
 	while (sFichierGrille != "")
 	{
@@ -26,7 +26,7 @@ int main()
 		{
 			 /*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			 à l'écran. */
-			/*Binairo Jeu(in, out);*/ /**TODO**/
+			Binairo Jeu(in, out);
 			/*Jeu.Solutionner();*/ /**TODO**/ 
 		}
 		else
