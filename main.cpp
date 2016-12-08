@@ -31,17 +31,14 @@ int main()
 
 		if (!in.fail())
 		{
-<<<<<<< HEAD
 			/*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			à l'écran. */
 			/*Binairo Jeu(in, out);*/ /**TODO**/
 			/*Jeu.Solutionner();*/ /**TODO**/
-=======
 			 /*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			 à l'écran. */
 			Binairo Jeu(in, out);
 			/*Jeu.Solutionner();*/ /**TODO**/ 
->>>>>>> refs/remotes/origin/JO
 		}
 		else
 		{

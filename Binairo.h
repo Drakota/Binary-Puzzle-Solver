@@ -10,13 +10,9 @@ Binairo.h
 
 class Binairo
 {
-<<<<<<< HEAD
-	const char VALEUR_SENTINELLE = '*';
-=======
 	const int NOMBRE_LIGNE = 10;
 	const int NOMBRE_COLONNE = 10;
 	const char VALEUR_SENTINELLE = '*' - '0';
->>>>>>> refs/remotes/origin/JO
 	int nbLignesBinairo_;
 	Chrono chronomètre_;
 	Matrice <int> m_;

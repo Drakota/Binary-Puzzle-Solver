@@ -11,39 +11,26 @@ Binairo
 Binairo.cpp
 */
 #include "Binairo.h"
-<<<<<<< HEAD
-=======
 #include <string>
 #include <fstream>
->>>>>>> refs/remotes/origin/JO
 #include <iostream>
-#include <string>
 using namespace std;
 
-<<<<<<< HEAD
-Binairo::Binairo(ifstream & in, ofstream & out)
-{
-
-=======
+//Binairo::Binairo(ifstream & in, ofstream & out)
+//{
+//
+//}
 Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, NOMBRE_COLONNE)
 {
 	InitMatrice(in);
->>>>>>> refs/remotes/origin/JO
 }
 
 void Binairo::Solutionner()
 {
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/remotes/origin/JO
 }
 
 void Binairo::InitMatrice(ifstream & in)
 {
-<<<<<<< HEAD
-	
-=======
 	int nombre;
 	int x = 0, y = 0;
 	do
@@ -61,18 +48,15 @@ void Binairo::InitMatrice(ifstream & in)
 		}
 	} while (!in.eof());
 	Ecrire(cout);
->>>>>>> refs/remotes/origin/JO
 }
 
 void Binairo::PlacerChiffre(int x, int y)
 {
-<<<<<<< HEAD
-	if (m_[x][y] == )
-		PlacerChiffre(x,y);
-	else if (m_[x][y] == )
-		PlacerChiffre(x,y);
-=======
->>>>>>> refs/remotes/origin/JO
+	//if (m_[x][y] == VALEUR_SENTINELLE)
+	//	PlacerChiffre(x,y);
+	//else if (m_[x][y] == 1)
+	//	PlacerChiffre(x +1,y);
+	//else if (m_[x][y] = )
 }
 
 // seront rendus disponibles aux étudiants un certain nombre de fonctions
@@ -162,9 +146,18 @@ void Binairo::Ecrire(ostream & out)
 int Binairo::TrouverCodeValidationLigne(int ligne)
 {
 	// à compléter par l'étudiant
+	int somme=0,temp=0,index = 0;
 
-
-	return 0;
+	for(int i = NOMBRE_COLONNE-1; i > 0; --i)
+	{
+		if (m_[ligne][index] == '1')
+		{
+			temp = pow(2, i);
+			somme += temp;
+		}
+		++index;
+	}
+	return somme;
 }
 
 void Binairo::EcrireCodeValidationColonnes(ostream & out)
@@ -173,4 +166,11 @@ void Binairo::EcrireCodeValidationColonnes(ostream & out)
 	// Note : cette méthode fait appel à une autre méthode 
 	//        nommée TrouverCodeValidationColonne() calquée
 	//        sur l'autre. 
+
+	//for (int i = 0; i < NOMBRE_LIGNE; ++i)
+	//{
+	//	TrouverCodeValidationLigne(i);
+	//}
+
+	//out << "Penis lol xdddd";
 }
