@@ -59,6 +59,7 @@ void Binairo::BloquerCase(int x, int y)
 void Binairo::PlacerChiffre(int x, int y)
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if (EstLigneComplétée(x) && x < NOMBRE_COLONNE)
 	{
 		for (int i = 0; i < NOMBRE_LIGNE; i++)
@@ -71,11 +72,16 @@ void Binairo::PlacerChiffre(int x, int y)
 		PlacerChiffre(x + 1, y);
 	}
 =======
+=======
+>>>>>>> refs/remotes/origin/CHARLES
 	//if (m_[x][y] == VALEUR_SENTINELLE)
 	//	PlacerChiffre(x,y);
 	//else if (m_[x][y] == 1)
 	//	PlacerChiffre(x +1,y);
 	//else if (m_[x][y] = )
+<<<<<<< HEAD
+>>>>>>> refs/remotes/origin/CHARLES
+=======
 >>>>>>> refs/remotes/origin/CHARLES
 }
 
