@@ -1,10 +1,16 @@
+/*
+Charles Morin et Jonathan Bouchard
+2016-12-03
+Binairo
+Binairo.h
+*/
 #include "Chrono.h"
 #include "Matrice.h"
 #pragma once
 
 class Binairo
 {
-	int const VALEUR_SENTINELLE = 10;
+	const char VALEUR_SENTINELLE = '*';
 	int nbLignesBinairo_;
 	Chrono chronomètre_;
 	Matrice <int> m_;
@@ -13,6 +19,7 @@ public:
 	Binairo(ifstream & in, ofstream & out);
 	void Solutionner();
 private:
+	void InitMatrice(ifstream& in);
 	void PlacerChiffre(int x, int y);
 	// vos autres méthodes private ici…
 	void AfficherEnTete(ostream & output, int maxColonnes) const;

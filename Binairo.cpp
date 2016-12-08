@@ -4,11 +4,39 @@
 // On indiquera dans un fichier de sortie où se trouve chaque
 // mot et dans quelle direction dans la grille.
 //------------------------------------------------------------
+/*
+Charles Morin et Jonathan Bouchard
+2016-12-03
+Binairo
+Binairo.cpp
+*/
 #include "Binairo.h"
-#include <string>
 #include <iostream>
 #include <string>
 using namespace std;
+
+Binairo::Binairo(ifstream & in, ofstream & out)
+{
+
+}
+
+void Binairo::Solutionner()
+{
+
+}
+
+void Binairo::InitMatrice(ifstream & in)
+{
+	
+}
+
+void Binairo::PlacerChiffre(int x, int y)
+{
+	if (m_[x][y] == )
+		PlacerChiffre(x,y);
+	else if (m_[x][y] == )
+		PlacerChiffre(x,y);
+}
 
 // seront rendus disponibles aux étudiants un certain nombre de fonctions
 // reliées à l'écriture à l'écran de la solution : 
