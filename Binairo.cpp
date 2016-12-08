@@ -17,6 +17,8 @@ Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, N
 
 void Binairo::Solutionner()
 {
+	PlacerChiffre(0, 0);
+	Ecrire(cout);
 }
 
 void Binairo::InitMatrice(ifstream & in)
@@ -37,11 +39,26 @@ void Binairo::InitMatrice(ifstream & in)
 			++y;
 		}
 	} while (!in.eof());
-	Ecrire(cout);
+}
+
+void Binairo::BloquerCase(int x, int y)
+{
+
 }
 
 void Binairo::PlacerChiffre(int x, int y)
 {
+	if (EstLigneComplétée(x) && x < NOMBRE_COLONNE)
+	{
+		for (int i = 0; i < NOMBRE_LIGNE; i++)
+		{
+			if (m_[x][i] == VALEUR_SENTINELLE)
+			{
+				m_[x][i] = 0;
+			}
+		}
+		PlacerChiffre(x + 1, y);
+	}
 }
 
 // seront rendus disponibles aux étudiants un certain nombre de fonctions

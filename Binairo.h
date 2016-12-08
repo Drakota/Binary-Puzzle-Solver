@@ -6,6 +6,8 @@ class Binairo
 {
 	const int NOMBRE_LIGNE = 10;
 	const int NOMBRE_COLONNE = 10;
+    int NombreZéros = 5;
+	int NombreUns = 5;
 	const char VALEUR_SENTINELLE = '*' - '0';
 	int nbLignesBinairo_;
 	Chrono chronomètre_;
@@ -16,6 +18,7 @@ public:
 	void Solutionner();
 private:
 	void InitMatrice(ifstream& in);
+	void BloquerCase(int x, int y);
 	void PlacerChiffre(int x, int y);
 	// vos autres méthodes private ici…
 	void AfficherEnTete(ostream & output, int maxColonnes) const;
