@@ -4,12 +4,22 @@
 // On indiquera dans un fichier de sortie où se trouve chaque
 // mot et dans quelle direction dans la grille.
 //------------------------------------------------------------
+/*
+Charles Morin et Jonathan Bouchard
+2016-12-03
+Binairo
+Binairo.cpp
+*/
 #include "Binairo.h"
 #include <string>
 #include <fstream>
 #include <iostream>
 using namespace std;
 
+//Binairo::Binairo(ifstream & in, ofstream & out)
+//{
+//
+//}
 Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, NOMBRE_COLONNE)
 {
 	InitMatrice(in);
@@ -48,6 +58,7 @@ void Binairo::BloquerCase(int x, int y)
 
 void Binairo::PlacerChiffre(int x, int y)
 {
+<<<<<<< HEAD
 	if (EstLigneComplétée(x) && x < NOMBRE_COLONNE)
 	{
 		for (int i = 0; i < NOMBRE_LIGNE; i++)
@@ -59,6 +70,13 @@ void Binairo::PlacerChiffre(int x, int y)
 		}
 		PlacerChiffre(x + 1, y);
 	}
+=======
+	//if (m_[x][y] == VALEUR_SENTINELLE)
+	//	PlacerChiffre(x,y);
+	//else if (m_[x][y] == 1)
+	//	PlacerChiffre(x +1,y);
+	//else if (m_[x][y] = )
+>>>>>>> refs/remotes/origin/CHARLES
 }
 
 // seront rendus disponibles aux étudiants un certain nombre de fonctions
@@ -148,8 +166,18 @@ void Binairo::Ecrire(ostream & out)
 int Binairo::TrouverCodeValidationLigne(int ligne)
 {
 	// à compléter par l'étudiant
+	int somme=0,temp=0,index = 0;
 
-	return 0;
+	for(int i = NOMBRE_COLONNE-1; i > 0; --i)
+	{
+		if (m_[ligne][index] == '1')
+		{
+			temp = pow(2, i);
+			somme += temp;
+		}
+		++index;
+	}
+	return somme;
 }
 
 void Binairo::EcrireCodeValidationColonnes(ostream & out)
@@ -158,4 +186,11 @@ void Binairo::EcrireCodeValidationColonnes(ostream & out)
 	// Note : cette méthode fait appel à une autre méthode 
 	//        nommée TrouverCodeValidationColonne() calquée
 	//        sur l'autre. 
+
+	//for (int i = 0; i < NOMBRE_LIGNE; ++i)
+	//{
+	//	TrouverCodeValidationLigne(i);
+	//}
+
+	//out << "Penis lol xdddd";
 }

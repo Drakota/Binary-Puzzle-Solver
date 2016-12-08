@@ -1,3 +1,10 @@
+/*
+	Charles Morin et Jonathan Bouchard
+	2016-12-03
+	Binairo
+	main.cpp
+*/
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -24,6 +31,10 @@ int main()
 
 		if (!in.fail())
 		{
+			/*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
+			à l'écran. */
+			/*Binairo Jeu(in, out);*/ /**TODO**/
+			/*Jeu.Solutionner();*/ /**TODO**/
 			 /*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			 à l'écran. */
 			Binairo Jeu(in, out);
@@ -35,9 +46,8 @@ int main()
 		}
 		sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
 	}
+
 }
-
-
 // Permet de demander à l'utilisateur le nom du fichier dans lequel
 // se trouve la grille de Binairo
 // Intrant : la chaine d'incitation à faire apparaitre à l'écran

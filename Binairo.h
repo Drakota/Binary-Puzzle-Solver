@@ -1,3 +1,9 @@
+/*
+Charles Morin et Jonathan Bouchard
+2016-12-03
+Binairo
+Binairo.h
+*/
 #include "Chrono.h"
 #include "Matrice.h"
 #pragma once
