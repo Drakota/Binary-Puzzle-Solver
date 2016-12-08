@@ -11,31 +11,68 @@ Binairo
 Binairo.cpp
 */
 #include "Binairo.h"
+<<<<<<< HEAD
+=======
+#include <string>
+#include <fstream>
+>>>>>>> refs/remotes/origin/JO
 #include <iostream>
 #include <string>
 using namespace std;
 
+<<<<<<< HEAD
 Binairo::Binairo(ifstream & in, ofstream & out)
 {
 
+=======
+Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, NOMBRE_COLONNE)
+{
+	InitMatrice(in);
+>>>>>>> refs/remotes/origin/JO
 }
 
 void Binairo::Solutionner()
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/JO
 }
 
 void Binairo::InitMatrice(ifstream & in)
 {
+<<<<<<< HEAD
 	
+=======
+	int nombre;
+	int x = 0, y = 0;
+	do
+	{
+		nombre = in.get() - '0';
+		if (nombre == 0 || nombre == 1 || nombre == VALEUR_SENTINELLE)
+		{
+			if (y > NOMBRE_LIGNE - 1) 
+			{
+				++x;
+				y = 0;
+			}
+			m_[x][y] = nombre;
+			++y;
+		}
+	} while (!in.eof());
+	Ecrire(cout);
+>>>>>>> refs/remotes/origin/JO
 }
 
 void Binairo::PlacerChiffre(int x, int y)
 {
+<<<<<<< HEAD
 	if (m_[x][y] == )
 		PlacerChiffre(x,y);
 	else if (m_[x][y] == )
 		PlacerChiffre(x,y);
+=======
+>>>>>>> refs/remotes/origin/JO
 }
 
 // seront rendus disponibles aux étudiants un certain nombre de fonctions
@@ -57,15 +94,15 @@ string Binairo::DeterminerChaine(int i, int j) const
 
 	// La valeur sentinelle est l'étoile ('*')
 	if (m_.at(i).at(j) == VALEUR_SENTINELLE)
-		chaine = "   !";
+		chaine = "   |";
 	else
 		if (m_[i][j] == 0)
 		{
-			chaine = " 0 !";
+			chaine = " 0 |";
 		}
 		else
 		{
-			chaine = " 1 !";
+			chaine = " 1 |";
 		}
 	return chaine;
 }
@@ -84,7 +121,7 @@ bool Binairo::EstColonneComplétée(int colonne) const
 {
 	int nbFoisValeurSentinelle = 0;
 
-	for (int j = 0; j < nbLignesBinairo_; ++j) 
+	for (int j = 0; j < nbLignesBinairo_; ++j)
 		if (m_[j][colonne] == VALEUR_SENTINELLE) nbFoisValeurSentinelle++;
 
 	return nbFoisValeurSentinelle == 0;
@@ -95,8 +132,8 @@ void Binairo::Ecrire(ostream & out)
 	int i, j;
 	int maxLignes = m_.GetNbLignes();
 	int maxColonnes = m_.GetNbColonnes();
-	const char SEPARATEUR_COLONNE = '|';  
-	const char SEPARATEUR_COLONNE_LIGNE_PLEINE = '+'; 
+	const char SEPARATEUR_COLONNE = '|';
+	const char SEPARATEUR_COLONNE_LIGNE_PLEINE = '+';
 
 	// ligne d'entête numérotée
 	AfficherEnTete(out, maxColonnes);
