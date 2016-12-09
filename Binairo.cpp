@@ -21,12 +21,19 @@ Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, N
 	InitMatrice(in);
 }
 
+/*
+Solutionne le binairo
+*/
 void Binairo::Solutionner()
 {
 	PlacerChiffre(0, 0);
 	Ecrire(cout);
 }
 
+/*
+Lis le fichier
+et initialise la matrice
+*/
 void Binairo::InitMatrice(ifstream & in)
 {
 	int nombre;
@@ -36,7 +43,7 @@ void Binairo::InitMatrice(ifstream & in)
 		nombre = in.get() - '0';
 		if (nombre == 0 || nombre == 1 || nombre == VALEUR_SENTINELLE)
 		{
-			if (y > NOMBRE_LIGNE - 1) 
+			if (y > NOMBRE_LIGNE - 1)
 			{
 				++x;
 				y = 0;
@@ -48,12 +55,19 @@ void Binairo::InitMatrice(ifstream & in)
 	minit_ = m_;
 }
 
+/*
+Empêche la valeur
+de la case d'être changée
+*/
 void Binairo::BloquerCase(int x, int y)
 {
 
 }
 
-
+/*
+Place un 0 ou un 1
+dans la matrice
+*/
 void Binairo::PlacerChiffre(int x, int y)
 {
 	if (EstLigneComplétée(x) && x < NOMBRE_COLONNE)
@@ -75,21 +89,89 @@ void Binairo::PlacerChiffre(int x, int y)
 			}
 		}
 	}
-
 }
 
+/*
+Vérifie si le programme
+peut se déplacer dans la matrice
+*/
 bool Binairo::PeutBouger(int x, int y)
 {
 	if (minit_[x][y] == 0 || minit_[x][y] == 1) return false;
 	else return true;
 }
 
+bool Binairo::VerifierVoisin(int x, int y)
+{
+	if (x > 0 && y > 0 && x < NOMBRE_COLONNE - 1 && y < NOMBRE_LIGNE - 1)
+	{
+		if (m_[x][y] != m_[x - 1][y] &&
+			m_[x][y] != m_[x + 1][y] ||
+			m_[x][y] != m_[x][y + 1] &&
+			m_[x][y] != m_[x][y - 1])
+			return true;
+		else
+			return false;
+	}
+
+	/////////////////////////////////////
+	//POSSIBILITÉ DE MÉTHODE À UTILISER//
+	/////////////////////////////////////
+
+	/*
+
+	int caseIdentique;
+
+	if (x - 1 >= 0 && y - 1 >= 0) // Haut Gauche
+	{
+
+	}
+	if (x - 1 >= 0 && y + 1 < NOMBRE_LIGNE) // Haut Droit
+	{
+
+	}
+	if (x + 1 < NOMBRE_COLONNE && y - 1 >= 0) // Bas Gauche
+	{
+
+	}
+	if (x + 1 < NOMBRE_COLONNE && y + 1 < NOMBRE_LIGNE) // Bas Droit
+	{
+
+	}
+	if (x - 1 >= 0) // Haut
+	{
+
+	}
+	if (x + 1 < NOMBRE_COLONNE) // Bas
+	{
+
+	}
+	if (y - 1 >= 0) // Gauche
+	{
+
+	}
+	if (y + 1 < NOMBRE_LIGNE) // Droit
+	{
+
+	}
+
+	if(caseIdentique > 2)
+		return false;
+	else
+		return true;
+	*/
+}
+
+/*
+Vérifie si le programme
+peut incérer un 1 dans la case
+*/
 bool Binairo::PeutPlacerUn(int x, int y)
 {
 	int NombreUnsLigne = 0;
 	int NombreUnsColonne = 0;
 
-	for (int i = 0; i < NOMBRE_COLONNE; i++)
+	for (int i = 0; i < NOMBRE_COLONNE; ++i)
 	{
 		if (m_[x][i] == 1) NombreUnsLigne++;
 		if (m_[i][y] == 1) NombreUnsColonne++;
@@ -98,6 +180,10 @@ bool Binairo::PeutPlacerUn(int x, int y)
 	else return false;
 }
 
+/*
+Vérifie si le programme
+peut incérer un 0 dans la case
+*/
 bool Binairo::PeutPlacerZéros(int x, int y)
 {
 	int NombreZérosLigne = 0;
@@ -201,7 +287,7 @@ int Binairo::TrouverCodeValidationLigne(int ligne)
 	// à compléter par l'étudiant
 	int somme = 0, index = 0;
 
-	for(int i = NOMBRE_COLONNE - 1; i > 0; --i)
+	for (int i = NOMBRE_COLONNE - 1; i > 0; --i)
 	{
 		if (m_[ligne][index] == 1)
 		{

@@ -28,6 +28,7 @@ private:
 	void BloquerCase(int x, int y);
 	void PlacerChiffre(int x, int y);
 	// vos autres méthodes private ici…
+	bool VerifierVoisin(int x, int y);
 	bool PeutBouger(int x, int y);
 	bool PeutPlacerUn(int x, int y);
 	bool PeutPlacerZéros(int x, int y);
