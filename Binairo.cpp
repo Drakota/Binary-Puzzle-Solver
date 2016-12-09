@@ -16,10 +16,6 @@ Binairo.cpp
 #include <iostream>
 using namespace std;
 
-//Binairo::Binairo(ifstream & in, ofstream & out)
-//{
-//
-//}
 Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, NOMBRE_COLONNE)
 {
 	InitMatrice(in);
@@ -27,6 +23,8 @@ Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, N
 
 void Binairo::Solutionner()
 {
+	PlacerChiffre(0, 0);
+	Ecrire(cout);
 }
 
 void Binairo::InitMatrice(ifstream & in)
@@ -47,16 +45,71 @@ void Binairo::InitMatrice(ifstream & in)
 			++y;
 		}
 	} while (!in.eof());
-	Ecrire(cout);
+	minit_ = m_;
 }
+
+void Binairo::BloquerCase(int x, int y)
+{
+
+}
+
 
 void Binairo::PlacerChiffre(int x, int y)
 {
-	//if (m_[x][y] == VALEUR_SENTINELLE)
-	//	PlacerChiffre(x,y);
-	//else if (m_[x][y] == 1)
-	//	PlacerChiffre(x +1,y);
-	//else if (m_[x][y] = )
+	if (EstLigneComplétée(x) && x < NOMBRE_COLONNE)
+	{
+		for (int i = 0; i < NOMBRE_LIGNE; i++)
+		{
+			if (PeutBouger(x, i))
+			{
+				if (PeutPlacerUn(x, i))
+				{
+					m_[x][i] = 1;
+					PlacerChiffre(x + 1, y);
+				}
+				else if (PeutPlacerZéros(x, i))
+				{
+					m_[x][i] = 0;
+					PlacerChiffre(x + 1, y);
+				}
+			}
+		}
+	}
+
+}
+
+bool Binairo::PeutBouger(int x, int y)
+{
+	if (minit_[x][y] == 0 || minit_[x][y] == 1) return false;
+	else return true;
+}
+
+bool Binairo::PeutPlacerUn(int x, int y)
+{
+	int NombreUnsLigne = 0;
+	int NombreUnsColonne = 0;
+
+	for (int i = 0; i < NOMBRE_COLONNE; i++)
+	{
+		if (m_[x][i] == 1) NombreUnsLigne++;
+		if (m_[i][y] == 1) NombreUnsColonne++;
+	}
+	if (NombreUnsLigne != NOMBRE_UNS && NombreUnsColonne != NOMBRE_UNS) return true;
+	else return false;
+}
+
+bool Binairo::PeutPlacerZéros(int x, int y)
+{
+	int NombreZérosLigne = 0;
+	int NombreZérosColonne = 0;
+
+	for (int i = 0; i < NOMBRE_COLONNE; i++)
+	{
+		if (m_[x][i] == 0) NombreZérosLigne++;
+		if (m_[i][y] == 0) NombreZérosColonne++;
+	}
+	if (NombreZérosLigne != NOMBRE_ZÉROS && NombreZérosColonne != NOMBRE_ZÉROS) return true;
+	else return false;
 }
 
 // seront rendus disponibles aux étudiants un certain nombre de fonctions
@@ -146,14 +199,13 @@ void Binairo::Ecrire(ostream & out)
 int Binairo::TrouverCodeValidationLigne(int ligne)
 {
 	// à compléter par l'étudiant
-	int somme=0,temp=0,index = 0;
+	int somme = 0, index = 0;
 
-	for(int i = NOMBRE_COLONNE-1; i > 0; --i)
+	for(int i = NOMBRE_COLONNE - 1; i > 0; --i)
 	{
-		if (m_[ligne][index] == '1')
+		if (m_[ligne][index] == 1)
 		{
-			temp = pow(2, i);
-			somme += temp;
+			somme += pow(2, i);
 		}
 		++index;
 	}
@@ -167,10 +219,8 @@ void Binairo::EcrireCodeValidationColonnes(ostream & out)
 	//        nommée TrouverCodeValidationColonne() calquée
 	//        sur l'autre. 
 
-	//for (int i = 0; i < NOMBRE_LIGNE; ++i)
-	//{
-	//	TrouverCodeValidationLigne(i);
-	//}
-
-	//out << "Penis lol xdddd";
+	for (int i = 0; i < NOMBRE_LIGNE; ++i)
+	{
+		TrouverCodeValidationLigne(i);
+	}
 }
