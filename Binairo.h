@@ -38,5 +38,6 @@ private:
 	bool EstColonneComplétée(int colonne) const;
 	void Ecrire(ostream & out);
 	int TrouverCodeValidationLigne(int ligne);
+	int TrouverValidationColonne(int colonne);
 	void EcrireCodeValidationColonnes(ostream & out);
 };

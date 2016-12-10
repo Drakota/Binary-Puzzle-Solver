@@ -14,6 +14,7 @@ Binairo.cpp
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, NOMBRE_COLONNE)
@@ -103,63 +104,7 @@ bool Binairo::PeutBouger(int x, int y)
 
 bool Binairo::VerifierVoisin(int x, int y)
 {
-	if (x > 0 && y > 0 && x < NOMBRE_COLONNE - 1 && y < NOMBRE_LIGNE - 1)
-	{
-		if (m_[x][y] != m_[x - 1][y] &&
-			m_[x][y] != m_[x + 1][y] ||
-			m_[x][y] != m_[x][y + 1] &&
-			m_[x][y] != m_[x][y - 1])
-			return true;
-		else
-			return false;
-	}
 
-	/////////////////////////////////////
-	//POSSIBILITÉ DE MÉTHODE À UTILISER//
-	/////////////////////////////////////
-
-	/*
-
-	int caseIdentique;
-
-	if (x - 1 >= 0 && y - 1 >= 0) // Haut Gauche
-	{
-
-	}
-	if (x - 1 >= 0 && y + 1 < NOMBRE_LIGNE) // Haut Droit
-	{
-
-	}
-	if (x + 1 < NOMBRE_COLONNE && y - 1 >= 0) // Bas Gauche
-	{
-
-	}
-	if (x + 1 < NOMBRE_COLONNE && y + 1 < NOMBRE_LIGNE) // Bas Droit
-	{
-
-	}
-	if (x - 1 >= 0) // Haut
-	{
-
-	}
-	if (x + 1 < NOMBRE_COLONNE) // Bas
-	{
-
-	}
-	if (y - 1 >= 0) // Gauche
-	{
-
-	}
-	if (y + 1 < NOMBRE_LIGNE) // Droit
-	{
-
-	}
-
-	if(caseIdentique > 2)
-		return false;
-	else
-		return true;
-	*/
 }
 
 /*
@@ -287,9 +232,24 @@ int Binairo::TrouverCodeValidationLigne(int ligne)
 	// à compléter par l'étudiant
 	int somme = 0, index = 0;
 
-	for (int i = NOMBRE_COLONNE - 1; i > 0; --i)
+	for (int i = NOMBRE_COLONNE - 1; i >= 0; --i)
 	{
 		if (m_[ligne][index] == 1)
+		{
+			somme += pow(2, i);
+		}
+		++index;
+	}
+	return somme;
+}
+
+int Binairo::TrouverValidationColonne(int colonne)
+{
+	int somme = 0, index = 0;
+
+	for (int i = NOMBRE_LIGNE - 1; i >= 0; --i)
+	{
+		if (m_[index][colonne] == 1)
 		{
 			somme += pow(2, i);
 		}
@@ -306,7 +266,13 @@ void Binairo::EcrireCodeValidationColonnes(ostream & out)
 	//        sur l'autre. 
 
 	for (int i = 0; i < NOMBRE_LIGNE; ++i)
-	{
 		TrouverCodeValidationLigne(i);
+
+	out << " ";
+
+	for (int j = 0; j < NOMBRE_COLONNE; ++j)
+	{
+		out << setw(3) << TrouverValidationColonne(j) << " ";
 	}
+	out << endl;
 }
