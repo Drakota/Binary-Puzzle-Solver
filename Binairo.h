@@ -29,8 +29,11 @@ private:
 	void PlacerChiffre(int x, int y);
 	// vos autres méthodes private ici…
 	bool PeutBouger(int x, int y);
-	bool PeutPlacerUn(int x, int y);
-	bool PeutPlacerZéros(int x, int y);
+	bool Normaliser(int & x, int & y);
+	bool CaseExiste(int x, int y);
+	bool VerificationHorizontale(int x, int y, int nombre);
+	bool VerificationVerticale(int x, int y, int nombre);
+	bool PeutPlacer(int x, int y, int nombre);
 	void AfficherEnTete(ostream & output, int maxColonnes) const;
 	string DeterminerChaine(int i, int j) const;
 	bool EstLigneComplétée(int ligne) const;
