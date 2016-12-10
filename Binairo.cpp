@@ -27,8 +27,11 @@ Solutionne le binairo
 */
 void Binairo::Solutionner()
 {
+	Chrono temps;
+	temps.Start();
 	PlacerChiffre(0, 0);
-	Ecrire(cout);
+	temps.Stop();
+	cout << temps.Read() << endl;
 }
 
 /*
@@ -37,7 +40,7 @@ et initialise la matrice
 */
 void Binairo::InitMatrice(ifstream & in)
 {
-	int nombre;
+	int nombre = 0;
 	int x = 0, y = 0;
 	do
 	{
@@ -65,30 +68,35 @@ void Binairo::BloquerCase(int x, int y)
 
 }
 
+<<<<<<< HEAD
 /*
 Place un 0 ou un 1
 dans la matrice
 */
+=======
+>>>>>>> refs/remotes/origin/dev
 void Binairo::PlacerChiffre(int x, int y)
 {
-	if (EstLigneComplétée(x) && x < NOMBRE_COLONNE)
+	if (Normaliser(x, y))
 	{
-		for (int i = 0; i < NOMBRE_LIGNE; i++)
+		if (PeutBouger(x, y))
 		{
-			if (PeutBouger(x, i))
+			for (int i = 0; i < 2; i++)
 			{
-				if (PeutPlacerUn(x, i))
+				if (PeutPlacer(x, y, i))
 				{
-					m_[x][i] = 1;
-					PlacerChiffre(x + 1, y);
-				}
-				else if (PeutPlacerZéros(x, i))
-				{
-					m_[x][i] = 0;
-					PlacerChiffre(x + 1, y);
+					m_[x][y] = i;
+					PlacerChiffre(x, y + 1);
+					m_[x][y] = VALEUR_SENTINELLE;
 				}
 			}
 		}
+		else PlacerChiffre(x, y + 1);
+	}
+	else
+	{
+		// la grille est pleine; verifier le succes
+		Ecrire(cout);
 	}
 }
 
@@ -102,6 +110,7 @@ bool Binairo::PeutBouger(int x, int y)
 	else return true;
 }
 
+<<<<<<< HEAD
 bool Binairo::VerifierVoisin(int x, int y)
 {
 
@@ -117,29 +126,64 @@ bool Binairo::PeutPlacerUn(int x, int y)
 	int NombreUnsColonne = 0;
 
 	for (int i = 0; i < NOMBRE_COLONNE; ++i)
+=======
+bool Binairo::Normaliser(int & x, int & y)
+{
+	if (x < NOMBRE_LIGNE && y < NOMBRE_COLONNE) return true;
+	if (y >= NOMBRE_COLONNE)
+>>>>>>> refs/remotes/origin/dev
 	{
-		if (m_[x][i] == 1) NombreUnsLigne++;
-		if (m_[i][y] == 1) NombreUnsColonne++;
+		++x;
+		y = 0;
 	}
-	if (NombreUnsLigne != NOMBRE_UNS && NombreUnsColonne != NOMBRE_UNS) return true;
+	if (x < NOMBRE_LIGNE) return true;
+	return false;
+}
+
+bool Binairo::CaseExiste(int x, int y)
+{
+	if (x >= 0 && x < NOMBRE_COLONNE && y >= 0 && y < NOMBRE_LIGNE) return true;
 	else return false;
 }
 
+<<<<<<< HEAD
 /*
 Vérifie si le programme
 peut incérer un 0 dans la case
 */
 bool Binairo::PeutPlacerZéros(int x, int y)
+=======
+bool Binairo::VerificationHorizontale(int x, int y, int nombre)
 {
-	int NombreZérosLigne = 0;
-	int NombreZérosColonne = 0;
+	bool PeutMettre = false;
+	if (CaseExiste(x, y - 1) && CaseExiste(x, y - 2)) if (m_[x][y - 1] == nombre && m_[x][y - 2] == nombre) PeutMettre = true;
+	if (CaseExiste(x, y - 1) && CaseExiste(x, y + 1)) if (m_[x][y - 1] == nombre && m_[x][y + 1] == nombre) PeutMettre = true;
+	if (CaseExiste(x, y + 1) && CaseExiste(x, y + 2)) if (m_[x][y + 1] == nombre && m_[x][y + 2] == nombre) PeutMettre = true;
+	return PeutMettre;
+}
+
+bool Binairo::VerificationVerticale(int x, int y, int nombre)
+>>>>>>> refs/remotes/origin/dev
+{
+	bool PeutMettre = false;
+	if (CaseExiste(x - 1, y) && CaseExiste(x - 2, y)) if (m_[x - 1][y] == nombre && m_[x - 2][y] == nombre) PeutMettre = true;
+	if (CaseExiste(x - 1, y) && CaseExiste(x + 1, y)) if (m_[x - 1][y] == nombre && m_[x + 1][y] == nombre) PeutMettre = true;
+	if (CaseExiste(x + 1, y) && CaseExiste(x + 2, y)) if (m_[x + 1][y] == nombre && m_[x + 2][y] == nombre) PeutMettre = true;
+	return PeutMettre;
+}
+
+bool Binairo::PeutPlacer(int x, int y, int nombre)
+{
+	int NombreLigne = 0;
+	int NombreColonne = 0;
 
 	for (int i = 0; i < NOMBRE_COLONNE; i++)
 	{
-		if (m_[x][i] == 0) NombreZérosLigne++;
-		if (m_[i][y] == 0) NombreZérosColonne++;
+		if (m_[x][i] == nombre) NombreLigne++;
+		if (m_[i][y] == nombre) NombreColonne++;
 	}
-	if (NombreZérosLigne != NOMBRE_ZÉROS && NombreZérosColonne != NOMBRE_ZÉROS) return true;
+
+	if (NombreLigne != NOMBRE_UNS && NombreColonne != NOMBRE_UNS && !VerificationHorizontale(x, y, nombre) && !VerificationVerticale(x, y, nombre)) return true;
 	else return false;
 }
 
@@ -180,7 +224,7 @@ bool Binairo::EstLigneComplétée(int ligne) const
 	int nbFoisValeurSentinelle = 0;
 
 	for (int j = 0; j < nbLignesBinairo_; ++j)
-		if (m_[ligne][j] == VALEUR_SENTINELLE) nbFoisValeurSentinelle++;
+			if (m_[ligne][j] == VALEUR_SENTINELLE) nbFoisValeurSentinelle + 1;
 
 	return nbFoisValeurSentinelle == 0;
 }
@@ -190,7 +234,7 @@ bool Binairo::EstColonneComplétée(int colonne) const
 	int nbFoisValeurSentinelle = 0;
 
 	for (int j = 0; j < nbLignesBinairo_; ++j)
-		if (m_[j][colonne] == VALEUR_SENTINELLE) nbFoisValeurSentinelle++;
+		if (m_[j][colonne] == VALEUR_SENTINELLE) nbFoisValeurSentinelle + 1;
 
 	return nbFoisValeurSentinelle == 0;
 }
@@ -264,7 +308,6 @@ void Binairo::EcrireCodeValidationColonnes(ostream & out)
 	// Note : cette méthode fait appel à une autre méthode 
 	//        nommée TrouverCodeValidationColonne() calquée
 	//        sur l'autre. 
-
 	for (int i = 0; i < NOMBRE_LIGNE; ++i)
 		TrouverCodeValidationLigne(i);
 

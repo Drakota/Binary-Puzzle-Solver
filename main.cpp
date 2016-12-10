@@ -33,8 +33,6 @@ int main()
 		{
 			/*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			à l'écran. */
-			/*Binairo Jeu(in, out);*/ /**TODO**/
-			/*Jeu.Solutionner();*/ /**TODO**/
 			 /*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			 à l'écran. */
 			Binairo Jeu(in, out);
@@ -44,7 +42,7 @@ int main()
 		{
 			cout << "Probleme a la lecture de la grille..." << endl;
 		}
-		sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille :");
+		sFichierGrille = DemanderNom("Entrez le nom du fichier contenant la grille : ");
 	}
 
 }
