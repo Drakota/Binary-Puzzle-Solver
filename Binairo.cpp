@@ -11,6 +11,7 @@ Binairo
 Binairo.cpp
 */
 #include "Binairo.h"
+#include <Windows.h>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -27,11 +28,10 @@ Solutionne le binairo
 */
 void Binairo::Solutionner()
 {
-	Chrono temps;
-	temps.Start();
+	chronomètre_.Start();
 	PlacerChiffre(0, 0);
-	temps.Stop();
-	cout << temps.Read() << endl;
+	chronomètre_.Stop();
+	rOut_ << "Temps ecoule : " << chronomètre_.Read() << endl;
 }
 
 /*
@@ -60,28 +60,16 @@ void Binairo::InitMatrice(ifstream & in)
 }
 
 /*
-Empêche la valeur
-de la case d'être changée
-*/
-void Binairo::BloquerCase(int x, int y)
-{
-
-}
-
-<<<<<<< HEAD
-/*
 Place un 0 ou un 1
 dans la matrice
 */
-=======
->>>>>>> refs/remotes/origin/dev
 void Binairo::PlacerChiffre(int x, int y)
 {
 	if (Normaliser(x, y))
 	{
 		if (PeutBouger(x, y))
 		{
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < 2; ++i)
 			{
 				if (PeutPlacer(x, y, i))
 				{
@@ -96,7 +84,7 @@ void Binairo::PlacerChiffre(int x, int y)
 	else
 	{
 		// la grille est pleine; verifier le succes
-		Ecrire(cout);
+		Ecrire(rOut_);
 	}
 }
 
@@ -110,28 +98,14 @@ bool Binairo::PeutBouger(int x, int y)
 	else return true;
 }
 
-<<<<<<< HEAD
-bool Binairo::VerifierVoisin(int x, int y)
-{
-
-}
-
 /*
-Vérifie si le programme
-peut incérer un 1 dans la case
+Vérifie la position
+dans la matrice
 */
-bool Binairo::PeutPlacerUn(int x, int y)
-{
-	int NombreUnsLigne = 0;
-	int NombreUnsColonne = 0;
-
-	for (int i = 0; i < NOMBRE_COLONNE; ++i)
-=======
 bool Binairo::Normaliser(int & x, int & y)
 {
 	if (x < NOMBRE_LIGNE && y < NOMBRE_COLONNE) return true;
 	if (y >= NOMBRE_COLONNE)
->>>>>>> refs/remotes/origin/dev
 	{
 		++x;
 		y = 0;
@@ -140,19 +114,20 @@ bool Binairo::Normaliser(int & x, int & y)
 	return false;
 }
 
+/*
+Vérifie si
+la case voulu existe
+*/
 bool Binairo::CaseExiste(int x, int y)
 {
 	if (x >= 0 && x < NOMBRE_COLONNE && y >= 0 && y < NOMBRE_LIGNE) return true;
 	else return false;
 }
 
-<<<<<<< HEAD
 /*
-Vérifie si le programme
-peut incérer un 0 dans la case
+Vérifie les voisins
+horizontal d'une case
 */
-bool Binairo::PeutPlacerZéros(int x, int y)
-=======
 bool Binairo::VerificationHorizontale(int x, int y, int nombre)
 {
 	bool PeutMettre = false;
@@ -162,8 +137,11 @@ bool Binairo::VerificationHorizontale(int x, int y, int nombre)
 	return PeutMettre;
 }
 
+/*
+Vérifie les voisins
+vertical d'une case
+*/
 bool Binairo::VerificationVerticale(int x, int y, int nombre)
->>>>>>> refs/remotes/origin/dev
 {
 	bool PeutMettre = false;
 	if (CaseExiste(x - 1, y) && CaseExiste(x - 2, y)) if (m_[x - 1][y] == nombre && m_[x - 2][y] == nombre) PeutMettre = true;
@@ -172,6 +150,48 @@ bool Binairo::VerificationVerticale(int x, int y, int nombre)
 	return PeutMettre;
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+Vérifie il y a 
+des lignes identiques
+dans la matrice
+*/
+bool Binairo::VerifieLigneIdentique(int ligne)
+{
+	for (int i = 0; i < NOMBRE_LIGNE-1; ++i)
+	{
+		if (TrouverCodeValidationLigne(ligne) == TrouverCodeValidationLigne(i) && ligne != i)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+/*
+Vérifie il y a
+des colonnes identiques
+dans la matrice
+*/
+bool Binairo::VerifieColonneIdentique(int colonne)
+{
+	for (int i = 0; i < NOMBRE_COLONNE -1; ++i)
+	{
+		if (TrouverValidationColonne(colonne) == TrouverValidationColonne(i) && colonne != i)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+/*
+Vérifie si le programme
+peut insérer un nombre dans la case
+*/
 bool Binairo::PeutPlacer(int x, int y, int nombre)
 {
 	int NombreLigne = 0;
@@ -219,16 +239,26 @@ string Binairo::DeterminerChaine(int i, int j) const
 	return chaine;
 }
 
+/*
+Vérifie si tous
+les cases de la ligne
+contiennent soie 0 ou 1
+*/
 bool Binairo::EstLigneComplétée(int ligne) const
 {
 	int nbFoisValeurSentinelle = 0;
 
 	for (int j = 0; j < nbLignesBinairo_; ++j)
-			if (m_[ligne][j] == VALEUR_SENTINELLE) nbFoisValeurSentinelle + 1;
+		if (m_[ligne][j] == VALEUR_SENTINELLE) nbFoisValeurSentinelle + 1;
 
 	return nbFoisValeurSentinelle == 0;
 }
 
+/*
+Vérifie si tous
+les cases de la colonne
+contiennent soie 0 ou 1
+*/
 bool Binairo::EstColonneComplétée(int colonne) const
 {
 	int nbFoisValeurSentinelle = 0;
@@ -239,6 +269,9 @@ bool Binairo::EstColonneComplétée(int colonne) const
 	return nbFoisValeurSentinelle == 0;
 }
 
+/*
+Affiche le Binairo
+*/
 void Binairo::Ecrire(ostream & out)
 {
 	int i, j;
@@ -246,6 +279,7 @@ void Binairo::Ecrire(ostream & out)
 	int maxColonnes = m_.GetNbColonnes();
 	const char SEPARATEUR_COLONNE = '|';
 	const char SEPARATEUR_COLONNE_LIGNE_PLEINE = '+';
+	system("cls");
 
 	// ligne d'entête numérotée
 	AfficherEnTete(out, maxColonnes);
@@ -271,6 +305,10 @@ void Binairo::Ecrire(ostream & out)
 	EcrireCodeValidationColonnes(out);
 }
 
+/*
+Calcul en décimal
+une ligne
+*/
 int Binairo::TrouverCodeValidationLigne(int ligne)
 {
 	// à compléter par l'étudiant
@@ -284,9 +322,14 @@ int Binairo::TrouverCodeValidationLigne(int ligne)
 		}
 		++index;
 	}
+
 	return somme;
 }
 
+/*
+Calcul en décimal
+une colonne
+*/
 int Binairo::TrouverValidationColonne(int colonne)
 {
 	int somme = 0, index = 0;
@@ -299,9 +342,14 @@ int Binairo::TrouverValidationColonne(int colonne)
 		}
 		++index;
 	}
+
 	return somme;
 }
 
+/*
+Affiche les résultats
+en décimal
+*/
 void Binairo::EcrireCodeValidationColonnes(ostream & out)
 {
 	// à compléter par l'étudiant
@@ -311,7 +359,7 @@ void Binairo::EcrireCodeValidationColonnes(ostream & out)
 	for (int i = 0; i < NOMBRE_LIGNE; ++i)
 		TrouverCodeValidationLigne(i);
 
-	out << " ";
+	out << "    ";
 
 	for (int j = 0; j < NOMBRE_COLONNE; ++j)
 	{
