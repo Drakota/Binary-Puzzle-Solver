@@ -81,11 +81,7 @@ void Binairo::PlacerChiffre(int x, int y)
 		}
 		else PlacerChiffre(x, y + 1);
 	}
-	else
-	{
-		// la grille est pleine; verifier le succes
-		Ecrire(rOut_);
-	}
+	else Ecrire(rOut_); // la grille est pleine; verifier le succes
 }
 
 /*
