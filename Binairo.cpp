@@ -18,7 +18,10 @@ Binairo.cpp
 #include <iomanip>
 using namespace std;
 
-Binairo::Binairo(ifstream & in, ofstream & out) : rOut_(out), m_(NOMBRE_LIGNE, NOMBRE_COLONNE)
+/*
+Constructeur
+*/
+Binairo::Binairo(ifstream & in, ostream & out) : rOut_(out), m_(NOMBRE_LIGNE, NOMBRE_COLONNE)
 {
 	InitMatrice(in);
 }
@@ -31,7 +34,7 @@ void Binairo::Solutionner()
 	chronomètre_.Start();
 	PlacerChiffre(0, 0);
 	chronomètre_.Stop();
-	rOut_ << "Temps ecoule : " << chronomètre_.Read() << endl;
+	rOut_ << "Temps ecoule : " << chronomètre_.Read() << " microsecondes" << endl;
 }
 
 /*
@@ -112,7 +115,7 @@ bool Binairo::Normaliser(int & x, int & y)
 
 /*
 Vérifie si
-la case voulu existe
+la case existe
 */
 bool Binairo::CaseExiste(int x, int y)
 {
@@ -146,43 +149,20 @@ bool Binairo::VerificationVerticale(int x, int y, int nombre)
 	return PeutMettre;
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
 /*
 Vérifie il y a 
 des lignes identiques
 dans la matrice
 */
-bool Binairo::VerifieLigneIdentique(int ligne)
+bool Binairo::VerifieIdentique(int ligne)
 {
-	for (int i = 0; i < NOMBRE_LIGNE-1; ++i)
-	{
-		if (TrouverCodeValidationLigne(ligne) == TrouverCodeValidationLigne(i) && ligne != i)
-		{
-			return true;
-		}
+	bool Unique = true;
+	for (int i = 0; i <= ligne; ++i)
+	{ 
+		if (TrouverCodeValidationLigne(ligne) == TrouverCodeValidationLigne(i) && ligne != i) Unique = false;
 	}
-	return false;
+	return Unique;
 }
-
-/*
-Vérifie il y a
-des colonnes identiques
-dans la matrice
-*/
-bool Binairo::VerifieColonneIdentique(int colonne)
-{
-	for (int i = 0; i < NOMBRE_COLONNE -1; ++i)
-	{
-		if (TrouverValidationColonne(colonne) == TrouverValidationColonne(i) && colonne != i)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
 Vérifie si le programme
@@ -192,14 +172,14 @@ bool Binairo::PeutPlacer(int x, int y, int nombre)
 {
 	int NombreLigne = 0;
 	int NombreColonne = 0;
-
+	bool Unique = true;
 	for (int i = 0; i < NOMBRE_COLONNE; i++)
 	{
 		if (m_[x][i] == nombre) NombreLigne++;
 		if (m_[i][y] == nombre) NombreColonne++;
 	}
-
-	if (NombreLigne != NOMBRE_UNS && NombreColonne != NOMBRE_UNS && !VerificationHorizontale(x, y, nombre) && !VerificationVerticale(x, y, nombre)) return true;
+	if (y == NOMBRE_COLONNE - 1) Unique = VerifieIdentique(x);
+	if (NombreLigne != NOMBRE_UNS && NombreColonne != NOMBRE_UNS && !VerificationHorizontale(x, y, nombre) && !VerificationVerticale(x, y, nombre) && Unique) return true;
 	else return false;
 }
 
@@ -307,7 +287,6 @@ une ligne
 */
 int Binairo::TrouverCodeValidationLigne(int ligne)
 {
-	// à compléter par l'étudiant
 	int somme = 0, index = 0;
 
 	for (int i = NOMBRE_COLONNE - 1; i >= 0; --i)
@@ -318,7 +297,6 @@ int Binairo::TrouverCodeValidationLigne(int ligne)
 		}
 		++index;
 	}
-
 	return somme;
 }
 
@@ -338,7 +316,6 @@ int Binairo::TrouverValidationColonne(int colonne)
 		}
 		++index;
 	}
-
 	return somme;
 }
 
