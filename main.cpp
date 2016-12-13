@@ -28,13 +28,11 @@ int main()
 		ifstream in(sFichierGrille.c_str());
 		if (!in.fail())
 		{
-			string sOut = "Solution-" + sFichierGrille;
-			ofstream out(sOut.c_str());
 			/*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			à l'écran. */
 			/*Passez en deuxième paramètre la valeur « cout » pour écrire la réponse
 			à l'écran. */
-			Binairo Jeu(in, out);
+			Binairo Jeu(in, cout);
 			Jeu.Solutionner();
 		}
 		else
